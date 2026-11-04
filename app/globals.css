@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-500.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-600.css";
+@import "@fontsource/ibm-plex-sans-arabic/arabic-700.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-400.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-600.css";
+@import "@fontsource/ibm-plex-sans-arabic/latin-700.css";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --color-brand: #245772;
+  --color-brand-dark: #1b4560;
+  --color-brand-light: #5aa0db;
+  --color-brand-tint: #eef5fc;
+  --color-ground: #f6f6f3;
+  --color-line: #e7e5e0;
+  --color-line-soft: #efede8;
+  --color-ink: #18181b;
+  --color-muted: #57534e;
+}
+
+@layer base {
+  html { background: var(--color-ground); color: var(--color-ink); }
+  body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
+}
+
+@layer components {
+  .card { @apply rounded-[14px] border border-line bg-white; }
+  .pill { @apply inline-flex h-[26px] items-center whitespace-nowrap rounded-full px-2.5 text-xs font-bold; }
+  .pill-paid { background: #dcfce7; color: #14532d; }
+  .pill-unpaid { background: #fee2e2; color: #7f1d1d; }
+  .pill-am { background: #ffedd5; color: #7c2d12; }
+  .pill-pm { background: #ede9fe; color: #4c1d95; }
+  .pill-regular { background: #dcebf8; color: #1b4560; }
+  .pill-once { background: #f1f1ee; color: #44403c; }
+  .btn { @apply inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-[10px] border border-[#d6d3cd] bg-white px-4 text-sm font-bold text-ink no-underline disabled:cursor-not-allowed disabled:opacity-60; }
+  .btn-primary { @apply border-transparent bg-brand text-white hover:bg-brand-dark; }
+  .btn-sm { @apply h-9 px-3 text-[13px]; }
+  .inp { @apply h-11 w-full rounded-[10px] border border-[#d6d3cd] bg-white px-3.5 text-sm font-medium text-ink; }
+  .fld { @apply flex flex-col gap-1.5 text-[13px] font-bold; }
+  .hint { @apply text-xs font-medium text-muted; }
+  .opt { @apply flex cursor-pointer items-center gap-2 rounded-xl border border-[#d6d3cd] bg-white px-3.5 py-3 text-sm font-bold has-[:checked]:border-2 has-[:checked]:border-brand; }
+  .tbl { @apply w-full border-collapse; }
+  .tbl th { @apply whitespace-nowrap px-4 py-3 text-right text-xs font-bold text-muted; }
+  .tbl td { @apply whitespace-nowrap border-t border-line-soft px-4 py-3 text-sm; }
+  .num { font-variant-numeric: tabular-nums; }
+  .bar { @apply h-2.5 overflow-hidden rounded-full bg-line-soft; }
+  .bar > span { @apply block h-full rounded-full; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  html, body { background: #fff !important; }
+  @page { size: A5; margin: 0; }
+}
