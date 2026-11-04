@@ -1,0 +1,197 @@
+{
+ "title": "Northwind Portal",
+ "subtitle": "Getting started: sign in and submit your first request",
+ "voice": "af_heart",
+ "speed": 0.95,
+ "intro": "Welcome to the Northwind Portal. In this quick guide, you'll learn how to sign in, find your way around the dashboard, and submit your first request.",
+ "outro_title": "You're all set!",
+ "outro_sub": "Questions? Contact the IT support team.",
+ "outro": "And that's it! You're ready to start using the Northwind Portal. If you have any questions, just reach out to the IT support team.",
+ "scenes": [
+  {
+   "image": "01-login",
+   "url": "portal.northwind.com/login",
+   "step": "Sign in to your account",
+   "beats": [
+    {
+     "say": "Start by opening the portal's login page in your browser."
+    },
+    {
+     "say": "Click the Work email field, and type your company email address.",
+     "do": "type",
+     "target": {
+      "x": 1420,
+      "y": 641,
+      "w": 840,
+      "h": 88
+     },
+     "text": "sara.ahmed@northwind.com",
+     "zoom": 1.7
+    },
+    {
+     "say": "Next, enter your password. For your security, it will appear as dots.",
+     "do": "type",
+     "target": {
+      "x": 1420,
+      "y": 815,
+      "w": 840,
+      "h": 88
+     },
+     "text": "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+     "zoom": 1.7
+    },
+    {
+     "say": "Then, click Sign in.",
+     "do": "click",
+     "target": {
+      "x": 1420,
+      "y": 1017,
+      "w": 840,
+      "h": 88
+     },
+     "zoom": 1.7
+    }
+   ]
+  },
+  {
+   "image": "02-dashboard",
+   "url": "portal.northwind.com/dashboard",
+   "step": "Explore your dashboard",
+   "beats": [
+    {
+     "say": "Once you're signed in, you'll land on your dashboard."
+    },
+    {
+     "say": "At the top, these cards give you a quick summary of all your requests.",
+     "do": "spotlight",
+     "target": {
+      "x": 536,
+      "y": 340,
+      "w": 1960,
+      "h": 198
+     },
+     "zoom": 1.25
+    },
+    {
+     "say": "Below them, you'll find your most recent requests, along with their current status.",
+     "do": "spotlight",
+     "target": {
+      "x": 536,
+      "y": 586,
+      "w": 1960,
+      "h": 564
+     },
+     "zoom": 1.2
+    },
+    {
+     "say": "You can use the menu on the left to move between the different sections of the portal.",
+     "do": "spotlight",
+     "target": {
+      "x": 0,
+      "y": 0,
+      "w": 472,
+      "h": 1600
+     },
+     "zoom": 1.15
+    },
+    {
+     "say": "To create something new, click the New request button.",
+     "do": "click",
+     "target": {
+      "x": 2199,
+      "y": 204,
+      "w": 297,
+      "h": 88
+     },
+     "zoom": 1.8
+    }
+   ]
+  },
+  {
+   "image": "03-new-request",
+   "url": "portal.northwind.com/requests/new",
+   "step": "Fill in your request",
+   "beats": [
+    {
+     "say": "This opens the new request form."
+    },
+    {
+     "say": "First, give your request a short, clear title.",
+     "do": "type",
+     "target": {
+      "x": 594,
+      "y": 668,
+      "w": 1404,
+      "h": 88
+     },
+     "text": "New laptop for design team",
+     "zoom": 1.6
+    },
+    {
+     "say": "Then add a few details in the description, so your manager knows exactly what you need.",
+     "do": "type",
+     "target": {
+      "x": 594,
+      "y": 842,
+      "w": 1404,
+      "h": 192
+     },
+     "text": "Laptop for our new designer, who starts on Monday.",
+     "zoom": 1.6
+    },
+    {
+     "say": "Choose the request type and the priority level.",
+     "do": "spotlight",
+     "target": {
+      "x": 1314,
+      "y": 448,
+      "w": 684,
+      "h": 134
+     },
+     "zoom": 1.6
+    },
+    {
+     "say": "When everything looks good, click Submit request.",
+     "do": "click",
+     "target": {
+      "x": 1701,
+      "y": 1312,
+      "w": 297,
+      "h": 88
+     },
+     "zoom": 1.7
+    }
+   ]
+  },
+  {
+   "image": "04-submitted",
+   "url": "portal.northwind.com/dashboard",
+   "step": "Track your request",
+   "beats": [
+    {
+     "say": "You'll see a confirmation message, letting you know your request was sent.",
+     "do": "spotlight",
+     "target": {
+      "x": 1704,
+      "y": 168,
+      "w": 800,
+      "h": 189
+     },
+     "zoom": 1.7
+    },
+    {
+     "say": "And your new request now appears at the top of the list, waiting for approval.",
+     "do": "spotlight",
+     "target": {
+      "x": 538,
+      "y": 765,
+      "w": 1956,
+      "h": 96
+     },
+     "zoom": 1.45
+    }
+   ]
+  }
+ ],
+ "chip": "Step-by-step guide"
+}
