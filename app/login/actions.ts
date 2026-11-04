@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { siteUrl } from "@/lib/env";
+import { siteUrl, SUPABASE_KEY, SUPABASE_URL } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState = { error?: string; info?: string };
@@ -12,9 +12,15 @@ export async function signIn(_prev: LoginState, formData: FormData): Promise<Log
   const password = String(formData.get("password") ?? "");
   if (!email || !password) return { error: "اكتب البريد وكلمة المرور." };
 
+  if (!SUPABASE_URL || !SUPABASE_KEY) return { error: "إعدادات Supabase ناقصة في Vercel (متغيرات البيئة). أعد النشر بعد ربط Supabase." };
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error || !data.user) return { error: "البريد أو كلمة المرور غير صحيحة." };
+  if (error || !data.user) {
+    const code = (error as { code?: string } | null)?.code;
+    if (code === "email_not_confirmed") return { error: "البريد غير مؤكَّد. في Supabase → Authentication → Users أكِّد المستخدم (Confirm user)." };
+    if (code === "invalid_credentials" || error?.status === 400) return { error: "البريد أو كلمة المرور غير صحيحة." };
+    return { error: `تعذّر الاتصال بقاعدة البيانات (${error?.status ?? "?"}). حاول بعد دقيقة.` };
+  }
 
   const { data: admin } = await supabase.from("admins").select("id").eq("id", data.user.id).maybeSingle();
   if (!admin) {
