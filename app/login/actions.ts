@@ -1,6 +1,8 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { siteUrl } from "@/lib/env";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState = { error?: string; info?: string };
@@ -27,7 +29,7 @@ export async function forgotPassword(_prev: LoginState, formData: FormData): Pro
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   if (!email) return { error: "اكتب بريدك أولاً ثم اضغط «نسيت كلمة المرور؟»." };
   const supabase = await createClient();
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const site = siteUrl((await headers()).get("origin"));
   await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${site}/auth/confirm?next=/reset-password` });
   // نفس الرسالة دائماً عشان ما نكشف أي بريد مسجّل
   return { info: "لو البريد مسجّل، وصلك رابط لتعيين كلمة مرور جديدة." };

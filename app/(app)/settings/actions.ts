@@ -1,6 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { siteUrl } from "@/lib/env";
 import { requireAdmin } from "@/lib/auth";
 import { passwordProblem } from "@/lib/password";
 
@@ -41,7 +43,7 @@ export async function sendResetLink(_prev: FormState, fd: FormData): Promise<For
   const targetId = String(fd.get("admin_id") ?? "");
   const { data: target } = await supabase.from("admins").select("email").eq("id", targetId).maybeSingle();
   if (!target) return { error: "المسؤول غير موجود." };
-  const site = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const site = siteUrl((await headers()).get("origin"));
   const { error } = await supabase.auth.resetPasswordForEmail(target.email, { redirectTo: `${site}/auth/confirm?next=/reset-password` });
   if (error) return { error: "ما قدرنا نرسل الرابط. جرّب بعد دقيقة." };
   return { ok: `تم إرسال رابط إعادة التعيين إلى ${target.email}` };

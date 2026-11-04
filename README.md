@@ -6,52 +6,22 @@
 
 ---
 
-## خطوات التشغيل (مرة واحدة)
+## خطوات التشغيل (مرة واحدة) — من Vercel مباشرة
 
-### 1) مشروع Supabase
-1. أنشئ مشروع جديد في [supabase.com](https://supabase.com).
-2. افتح **SQL Editor**، الصق محتوى الملف `supabase/migrations/0001_init.sql` كاملاً، واضغط **Run**. بعده نفس الشي للملف `supabase/migrations/0002_expenses.sql`.
-3. من **Project Settings → API** انسخ:
-   - `Project URL`
-   - مفتاح `anon` / `publishable`
-   - مفتاح `service_role` (سري، للخطوة 2 فقط)
-4. **Authentication → Sign In / Providers → Email**: خلّ Email مفعّل، و**اقفل "Allow new users to sign up"** (ما في تسجيل حسابات من برّا).
-5. **Authentication → URL Configuration**: حط `Site URL` = رابط الموقع على Vercel، وأضف نفس الرابط + `/**` في Redirect URLs.
-6. **Authentication → Email Templates → Reset Password**: غيّر الرابط في القالب إلى:
+1. **Vercel → Add New → Project** واستورد المستودع `Krc` من GitHub، واضغط **Deploy**.
+2. في المشروع على Vercel: **Storage → Create Database → Supabase** → اختر المنطقة والخطة → **Connect** للمشروع. التكامل يضيف المتغيرات تلقائياً (`NEXT_PUBLIC_SUPABASE_URL` و `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`…).
+3. افتح Supabase من Vercel (**Storage → Open in Supabase**) → **SQL Editor**: شغّل `supabase/migrations/0001_init.sql` ثم `supabase/migrations/0002_expenses.sql`.
+4. **Authentication → Sign In / Providers → Email**: اقفل **Allow new users to sign up**.
+5. **Authentication → URL Configuration**: `Site URL` = رابط الموقع على Vercel، وأضف `رابط-الموقع/**` في Redirect URLs.
+6. **Authentication → Email Templates → Reset Password**: غيّر الرابط إلى
    ```
    {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/reset-password
    ```
-   (عشان رابط «إعادة تعيين كلمة المرور» يشتغل حتى لو انفتح من جهاز ثاني.)
+7. **Authentication → Users → Add user → Create new user** لكل مسؤول (البريد + كلمة مرور مؤقتة + Auto Confirm User)، بعدها شغّل `supabase/seed_admins.sql` في SQL Editor.
+8. **Vercel → Deployments → Redeploy** عشان المتغيرات تشتغل.
 
-### 2) إنشاء حسابات المسؤولين
-من جهازك (مرة واحدة فقط):
-```bash
-npm install
-SUPABASE_URL="https://xxxx.supabase.co" \
-SUPABASE_SERVICE_ROLE_KEY="service-role-key" \
-INITIAL_PASSWORD="كلمة-المرور-المؤقتة" \
-npm run create-admins
-```
-ينشئ الحسابين (الأسماء والإيميلات في `scripts/create-admins.mjs`):
-- نمر زايد — nimerzayed@icloud.com
-- سائد طه — saedtaha1975@gmail.com
-
-كلمة المرور مؤقتة: الموقع يعرض تنبيه لحد ما كل مسؤول يغيّرها من **الإعدادات**.
-> لا تحط كلمة المرور ولا مفتاح `service_role` في الكود أو على GitHub.
-
-### 3) النشر على Vercel
-1. ارفع المجلد على GitHub (مستودع **خاص**).
-2. في Vercel: **Add New → Project** واختر المستودع.
-3. أضف متغيرات البيئة:
-   | الاسم | القيمة |
-   |---|---|
-   | `NEXT_PUBLIC_SUPABASE_URL` | Project URL |
-   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | مفتاح anon / publishable |
-   | `NEXT_PUBLIC_SITE_URL` | رابط الموقع، مثلاً `https://krc-invoices.vercel.app` |
-4. **Deploy**. بعدها ارجع لخطوة 1.5 وحدّث `Site URL` لو تغيّر الرابط.
-
-> ملاحظة: خطة Vercel المجانية (Hobby) للاستخدام غير التجاري فقط. للتشغيل الفعلي للمركز استخدم خطة Pro أو استضافة تسمح بالاستخدام التجاري.
-> مشروع Supabase المجاني يتوقف لو ما انستخدم أسبوع كامل، ويرجع يشتغل من لوحة Supabase.
+> بديل للخطوة 7 من الطرفية: `npm run create-admins` مع `SUPABASE_URL` و `SUPABASE_SECRET_KEY` و `INITIAL_PASSWORD`.
+> خطة Vercel المجانية (Hobby) للاستخدام غير التجاري فقط؛ مشروع Supabase المجاني يتوقف لو ما انستخدم أسبوع.
 
 ### تشغيل محلي
 ```bash
