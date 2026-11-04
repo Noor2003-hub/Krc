@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SUPABASE_KEY, SUPABASE_URL } from "./lib/env";
 
 // صفحات مفتوحة بدون تسجيل دخول
-const PUBLIC_PATHS = ["/login", "/auth/confirm", "/reset-password"];
+const PUBLIC_PATHS = ["/login", "/auth/confirm", "/reset-password", "/api/keep-alive"];
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });

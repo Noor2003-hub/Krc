@@ -10,7 +10,7 @@
 
 1. **Vercel → Add New → Project** واستورد المستودع `Krc` من GitHub، واضغط **Deploy**.
 2. في المشروع على Vercel: **Storage → Create Database → Supabase** → اختر المنطقة والخطة → **Connect** للمشروع. التكامل يضيف المتغيرات تلقائياً (`NEXT_PUBLIC_SUPABASE_URL` و `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`…).
-3. افتح Supabase من Vercel (**Storage → Open in Supabase**) → **SQL Editor**: شغّل `supabase/migrations/0001_init.sql` ثم `supabase/migrations/0002_expenses.sql`.
+3. افتح Supabase من Vercel (**Storage → Open in Supabase**) → **SQL Editor**: شغّل `supabase/migrations/0001_init.sql` ثم `0002_expenses.sql` ثم `0003_keep_alive.sql`.
 4. **Authentication → Sign In / Providers → Email**: اقفل **Allow new users to sign up**.
 5. **Authentication → URL Configuration**: `Site URL` = رابط الموقع على Vercel، وأضف `رابط-الموقع/**` في Redirect URLs.
 6. **Authentication → Email Templates → Reset Password**: غيّر الرابط إلى
@@ -21,7 +21,9 @@
 8. **Vercel → Deployments → Redeploy** عشان المتغيرات تشتغل.
 
 > بديل للخطوة 7 من الطرفية: `npm run create-admins` مع `SUPABASE_URL` و `SUPABASE_SECRET_KEY` و `INITIAL_PASSWORD`.
-> خطة Vercel المجانية (Hobby) للاستخدام غير التجاري فقط؛ مشروع Supabase المجاني يتوقف لو ما انستخدم أسبوع.
+> **منع إيقاف Supabase المجاني:** `vercel.json` فيه Cron يومي يزور `/api/keep-alive` (يستدعي الدالة `keep_alive`) عشان المشروع ما يتوقف بسبب قلة الاستخدام. اختياري: أضف متغير `CRON_SECRET` في Vercel لحماية الرابط.
+> **نسخة احتياطية:** الخطة المجانية ما فيها نسخ يومية — صدّر الفواتير Excel آخر كل شهر واحفظها.
+> خطة Vercel المجانية (Hobby) للاستخدام غير التجاري فقط.
 
 ### تشغيل محلي
 ```bash
